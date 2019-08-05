@@ -78,3 +78,5 @@ where 1=1
   and {conditions_summary}
   and {conditions_detail}
 ```
+
+Additionally, using subqueries within joins would be more efficient than those within where clauses.

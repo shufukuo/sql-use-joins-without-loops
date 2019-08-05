@@ -1,0 +1,1 @@
+# tips-sql-from-loop-to-a-join

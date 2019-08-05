@@ -45,7 +45,7 @@ end;
 ```
 
 
-However, this can be done simply by a query with joins without loops.
+However, this can be done simply by a query with joins instead of loops.
 ```sql
 select sum(det.sales) as total_sales
 from

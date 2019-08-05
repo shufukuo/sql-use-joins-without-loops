@@ -1,4 +1,4 @@
-# tips-sql-from-loop-to-a-join
+# sql-use-joins-without-loops
 
 The situation is we need to obtain special order IDs from table ```order_special``` in the Oracle database first; then find these orders' corresponding information from ```order_summary``` and ```order_detail```, and obtain the orders of each customer to within 7 days from the first order date; finaly calculate the total sales.
 

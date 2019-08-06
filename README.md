@@ -1,6 +1,6 @@
 # sql-use-joins-without-loops
 
-The situation is we need to obtain special order IDs from table ```order_special``` in the Oracle database first; then find these orders' corresponding information from ```order_summary``` and ```order_detail```, and obtain the orders of each customer to within 7 days from the first order date; finaly calculate the total sales.
+The situation is we have to obtain special order IDs from table ```order_special``` in the Oracle database first; then find these orders' corresponding information from tables ```order_summary``` and ```order_detail```, and obtain the orders of each customer to within 7 days since the first order date; finaly calculate the total sales.
 
 I found an original SQL code as following.
 ```sql
@@ -17,9 +17,9 @@ begin
     from order_summary sm
     left join order_detail det
       on sm.order_id = det.order_id
-    where sm.order_id in (select distinct order_id from order_special where {conditions_special})
-      and {conditions_summary}
-      and {conditions_detail}
+    where sm.order_id in (select distinct order_id from order_special where {...conditions_special...})
+      and {...conditions_summary...}
+      and {...conditions_detail...}
     group by sm.customer_id
     )
   loop
@@ -31,8 +31,8 @@ begin
     where sm.customer_id = i_row.customer_id
       and sm.order_date >= i_row.order_date
       and sm.order_date <= to_char(to_date(i_row.order_date, 'yyyy/mm/dd') + 6, 'yyyy/mm/dd')
-      and {conditions_summary}
-      and {conditions_detail}
+      and {...conditions_summary...}
+      and {...conditions_detail...}
     ;
     
     total_sales := total_sales + sales;
@@ -57,15 +57,15 @@ from
     (
     select distinct order_id
     from order_special
-    where {conditions_special}
+    where {...conditions_special...}
     ) sp
   inner join order_summary sm
     on sp.order_id = sm.order_id
   inner join order_detail det
     on sp.order_id = det.order_id
   where 1=1
-    and {conditions_summary}
-    and {conditions_detail}
+    and {...conditions_summary...}
+    and {...conditions_detail...}
   group by sm.customer_id
   ) id
 inner join order_summary sm
@@ -75,8 +75,8 @@ inner join order_summary sm
 inner join order_detail det
   on sm.order_id = det.order_id
 where 1=1
-  and {conditions_summary}
-  and {conditions_detail}
+  and {...conditions_summary...}
+  and {...conditions_detail...}
 ```
 
 Additionally, using subqueries within joins would be more efficient than those within where clauses.

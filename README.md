@@ -52,7 +52,7 @@ from
   (
   select sm.customer_id,
     min(sm.order_date) as order_date_1st,
-    to_char( to_date( min( sm.order_date ), 'yyyy/mm/dd' ) + 6, 'yyyy/mm/dd' ) as order_date_7days
+    to_char( to_date( min(sm.order_date), 'yyyy/mm/dd' ) + 6, 'yyyy/mm/dd' ) as order_date_7days
   from
     (
     select distinct order_id
